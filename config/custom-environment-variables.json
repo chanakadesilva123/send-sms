@@ -1,0 +1,12 @@
+{
+  "messagebird": {
+    "apiUrl": "MESSAGEBIRD_API_URL",
+    "apiAccessKey": "MESSAGEBIRD_API_KEY"
+  },
+  "telstra": {
+    "authTokenUrl": "TELSTRA_API_GET_AUTH_TOKEN_URL",
+    "apiUrl": "TELSTRA_API_SEND_SMS_URL",
+    "apiAccessKey": "TELSTRA_API_CLIENT_KEY",
+    "secret": "TELSTRA_API_CLIENT_SECRET"
+  }
+}

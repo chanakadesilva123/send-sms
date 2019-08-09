@@ -1,0 +1,41 @@
+{
+  "host": "localhost",
+  "port": 3030,
+  "public": "../public/",
+  "paginate": {
+    "default": 10,
+    "max": 50
+  },
+  "mongodb": "mongodb://localhost:27017/send_sms",
+  "messagebird": {
+    "apiUrl": "",
+    "apiAccessKey": ""
+  },
+  "telstra": {
+    "authTokenUrl": "",
+    "apiUrl": "",
+    "apiAccessKey": "",
+    "secret": ""
+  },
+  "authentication": {
+    "secret": "dd89e5ec6568e217a2919fb0902c790bf5f9bade24a867273255b9a3256f840c168efa1a92799681323f2c570f6f03213c61cde4abbb18ff7a8f0c53e4fe715834fbe753e77d1feb283aa1b3e9fd6eff8fb4dd55adea7eb702d8793897066bb7a758c2a53aa02b35113c5863751a4125bdbff63efcb3cf4af7bc24f89d58ad0c0e8b1c28c963479c6394ac7c8bde074f83be0b922270f5075425e9bed84173ac18651c782c7b18841f9c2e9a9511bdf122fe78bc08c726835fd081849f23151b055a932ccbccb58f7456e4487e4a539b86d479121a13dc1b15be420d41f654c48a9668adecdb879ee06481914e9961050f32dbedb86c421a3622e44263789bdf",
+    "strategies": ["jwt", "local"],
+    "path": "/authentication",
+    "service": "users",
+    "jwt": {
+      "header": {
+        "typ": "access"
+      },
+      "audience": "https://yourdomain.com",
+      "subject": "anonymous",
+      "issuer": "feathers",
+      "algorithm": "HS256",
+      "expiresIn": "1d"
+    },
+    "local": {
+      "entity": "user",
+      "usernameField": "email",
+      "passwordField": "password"
+    }
+  }
+}

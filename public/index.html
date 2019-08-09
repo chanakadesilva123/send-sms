@@ -1,0 +1,348 @@
+<html>
+  <head>
+    <title>Welcome to Send SMS APP</title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <main class="container">
+      <div class="card">
+        <div class="card-header">
+          <img src="SendSMS-Logo.png" alt="SendSMS Logo" />
+        </div>
+        <div class="card-body">
+          <!--
+            <nav class="navbar navbar-light bg-light">
+              <span id="messageList" class="navbar-brand mb-0 h1"></span>
+            </nav>
+
+          <form>
+            <div class="form-group">
+              <label for="exampleInputEmail1">API Provider</label>
+              <div class="form-check">
+                <input class="form-check-input" onchange="apiProviderChanged(this)" type="radio" name="apiProvider" id="apiProvider1" value="messagebird" checked />
+                <label class="form-check-label" for="exampleRadios1">
+                  Messagebird
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" onchange="apiProviderChanged(this)" onchange="" type="radio" name="apiProvider" id="apiProvider2" value="telstra" />
+                <label class="form-check-label" for="exampleRadios2">
+                  Telstra
+                </label>
+              </div>
+            </div>
+            <div class="form-group" id="form-group-sender">
+              <label for="exampleInputEmail1">Sender</label>
+              <input type="text" class="form-control" placeholder="sender" id="sender" aria-describedby="senderHelp" />
+              <small id="senderHelp" class="form-text text-muted">Sender Name</small>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Recipient/s</label>
+              <input type="text" class="form-control" placeholder="recipients" id="recipients" aria-describedby="recipientHelp" />
+              <small id="recipientHelp" class="form-text text-muted">Enter the SMS recipients list comma seperated</small>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Message</label>
+              <input type="text" class="form-control" placeholder="message" id="message" aria-describedby="messageHelp" />
+              <small id="messageHelp" class="form-text text-muted">Enter the SMS message</small>
+            </div>
+            <button type="button" onclick="sendMessage()" class="btn btn-primary mb-2">Send Message</button>
+          </form>
+          -->
+          <div class="card">
+            <div class="card-body">
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary message-send-button" data-id="sendMessageTelstraModal" data-toggle="modal" data-target="#loginModal">
+                Send Message via Telstra API
+              </button>
+              <button type="button" class="btn btn-primary message-send-button" data-id="sendMessageMessageBirdModal" data-toggle="modal" data-target="#loginModal">
+                Send Message via MessageBird API
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- Modal -->
+    <div class="modal fade" id="sendMessageTelstraModal" tabindex="-1" role="dialog" aria-labelledby="sendMessageTelstraModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="sendMessageTelstraModalCenterTitle">Send Message</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <nav class="navbar navbar-light bg-light">
+              <span id="telstraMessageList" class="navbar-brand mb-0 h1"></span>
+            </nav>
+            <form>
+              <div class="form-group">
+                <label for="recipientsTelstra">Recipient/s</label>
+                <input type="text" class="form-control" placeholder="Recipients" id="recipientsTelstra" aria-describedby="recipientHelp" />
+                <small id="recipientHelp" class="form-text text-muted">Enter the SMS recipients list comma seperated</small>
+              </div>
+              <div class="form-group">
+                <label for="messageTelstra">Message</label>
+                <input type="text" class="form-control" placeholder="message" id="messageTelstra" aria-describedby="messageHelp" />
+                <small id="messageHelp" class="form-text text-muted">Enter the SMS message</small>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-success" onclick="sendMessageTelstra()">Send Message</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="sendMessageMessageBirdModal" tabindex="-1" role="dialog" aria-labelledby="sendMessageMessageBirdModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="sendMessageMessageBirdModalCenterTitle">Send Message</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <nav class="navbar navbar-light bg-light">
+              <span id="messageBirdMessageList" class="navbar-brand mb-0 h1"></span>
+            </nav>
+            <form>
+              <div class="form-group" id="form-group-sender">
+                <label for="senderMessageBird">Sender</label>
+                <input type="text" class="form-control" placeholder="sender" value="Exemplar" id="senderMessageBird" aria-describedby="senderHelp" />
+                <small id="senderHelp" class="form-text text-muted">Sender Name</small>
+              </div>
+              <div class="form-group">
+                <label for="recipientsMessageBird">Recipient/s</label>
+                <input type="text" class="form-control" placeholder="Recipients" id="recipientsMessageBird" aria-describedby="recipientHelp" />
+                <small id="recipientHelp" class="form-text text-muted">Enter the SMS recipients list comma seperated</small>
+              </div>
+              <div class="form-group">
+                <label for="messageMessageBird">Message</label>
+                <input type="text" class="form-control" placeholder="message" id="messageMessageBird" aria-describedby="messageHelp" />
+                <small id="messageHelp" class="form-text text-muted">Enter the SMS message</small>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-success" onclick="sendMessageMessageBird()">Send Message</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalCenterTitle">Please Login...</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <nav class="navbar navbar-light bg-light">
+              <span id="loginMessageList" class="navbar-brand mb-0 h1"></span>
+            </nav>
+            <form>
+              <div class="form-group" id="form-group-sender">
+                <label for="email">Email</label>
+                <input type="text" class="form-control" placeholder="Email" id="email" name="email" />
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" placeholder="Password" id="password" name="password" />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+            <button type="button" value="" id="loginBtn" onclick="doLogin(this.value)" class="btn btn-success">Login</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/core-js/2.1.4/core.min.js"></script>
+    <script src="//unpkg.com/@feathersjs/client@^3.0.0/dist/feathers.js"></script>
+    <script src="//unpkg.com/socket.io-client@1.7.3/dist/socket.io.js"></script>
+    <script type="text/javascript">
+      var socket = io();
+      var app = feathers();
+      app.configure(feathers.socketio(socket));
+      app.configure(
+        feathers.authentication({
+          storage: window.localStorage
+        })
+      );
+      var messages = app.service("sms-messaging");
+      var messagesTelstra = app.service("sms-telstra");
+      var messagesMessageBird = app.service("sms-messagebird");
+
+      $(document).ready(function() {
+        console.log("hi");
+
+        // Find all messages within the last day
+        const DAY_MS = 24 * 60 * 60 * 1000;
+        messages
+          .find({
+            query: {
+              createdAt: {
+                $gt: new Date().getTime() - DAY_MS
+              },
+              $limit: 10,
+              $sort: {
+                createdAt: -1
+              }
+            }
+          })
+          .then(items => {
+            console.log("hi", items);
+
+            items.data.forEach(item => {
+              if (item.response.messages)
+                item.response.messages.forEach(message => console.log(message.messageId + " | " + message.to + " | " + message.deliveryStatus + " </h4>"));
+            });
+          });
+
+        /*messages.get("get", function(message) {
+                      var newMessage = document.getElementById("messageList");
+                      newMessage.innerHTML += "<h4>" + message + "</h4>";
+                      console.log("Message created on client", message);
+                    });*/
+        $(document).on("click", ".message-send-button", function() {
+          var modalId = $(this).data("id");
+          $("#loginBtn").val(modalId);
+          console.log("modalId=" + modalId);
+        });
+      });
+      function apiProviderChanged(obj) {
+        console.log("apiProviderChanged->obj=" + obj.value);
+        if (obj.value == "messagebird") {
+          $("#sender").attr("value", "");
+          $("#form-group-sender").show();
+        } else {
+          $("#sender").attr("value", "telstra");
+          $("#form-group-sender").hide();
+        }
+      }
+      function sendMessageMessageBird() {
+        var sender = $("#senderMessageBird").val();
+        var messageText = $("#messageMessageBird").val();
+        var recipients = $("#recipientsMessageBird").val();
+        console.log("sendMessage->sender=" + sender);
+        console.log("sendMessage->messageText=" + messageText);
+        console.log("sendMessage->recipients=" + recipients);
+        let data = { sender: sender, text: messageText, recipients: recipients };
+        var newMessage = document.getElementById("messageBirdMessageList");
+        newMessage.innerHTML = "";
+        messagesMessageBird
+          .create(data)
+          .then(response => {
+            console.log("response", response);
+            response.response.recipients.items.forEach(message => (newMessage.innerHTML += "<h4>" + message.recipient + " => " + message.status + " </h4>"));
+          })
+          .catch(error => {
+            console.log("error", error);
+            newMessage.innerHTML += "<h4>" + error.message + " </h4>";
+          });
+      }
+
+      const login = async credentials => {
+        try {
+          if (!credentials) {
+            // Try to authenticate using the JWT from localStorage
+            await app.authenticate();
+          } else {
+            // If we get login information, add the strategy we want to use for login
+            const payload = Object.assign({ strategy: "local" }, credentials);
+
+            await app.authenticate(payload);
+          }
+
+          // If successful, show the chat page
+          $("#sendMessageTelstraModal").modal("show");
+          $("#loginModal").modal("hide");
+        } catch (error) {
+          // If we got an error, show the login page
+          document.getElementById("loginMessageList").innerHTML += "<h4>" + error.message + " </h4>";
+        }
+      };
+      function doLogin(modalId) {
+        console.log("loginBtn .click() called.");
+        const user = {
+          strategy: "local",
+          email: document.querySelector('[name="email"]').value,
+          password: document.querySelector('[name="password"]').value
+        };
+        console.log("user", user);
+
+        app
+          .authenticate(user)
+          .then(response => {
+            console.log("response", response);
+            $("#" + modalId).modal("show");
+            $("#loginModal").modal("hide");
+          })
+          .catch(error => {
+            console.log("error", error);
+            // If we got an error, show the login page
+            document.getElementById("loginMessageList").innerHTML += "<h4>" + error.message + " </h4>";
+          });
+      }
+
+      function sendMessageTelstra() {
+        var messageText = $("#messageTelstra").val();
+        var recipients = $("#recipientsTelstra").val();
+        console.log("sendMessage->messageText=" + messageText);
+        console.log("sendMessage->recipients=" + recipients);
+        let data = { text: messageText, recipients: recipients };
+        var newMessage = document.getElementById("telstraMessageList");
+        newMessage.innerHTML = "";
+        messagesTelstra
+          .create(data)
+          .then(response => {
+            console.log("response", response);
+            response.messages.forEach(message => (newMessage.innerHTML += "<h4>" + message.to + " => " + message.deliveryStatus + " </h4>"));
+          })
+          .catch(error => {
+            console.log("error", error);
+            newMessage.innerHTML += "<h4>" + error.message + " </h4>";
+          });
+      }
+      function sendMessage() {
+        var messageText = $("#message").val();
+        var sender = $("#sender").val();
+        var apiProvider = $("input[name='apiProvider']:checked").val();
+        var recipients = $("#recipients").val();
+        console.log("sendMessage->messageText=" + messageText);
+        console.log("sendMessage->sender=" + sender);
+        console.log("sendMessage->apiProvider=" + apiProvider);
+        console.log("sendMessage->recipients=" + recipients);
+        let data = { text: messageText, sender: sender, apiprovider: apiProvider, recipients: recipients };
+        var newMessage = document.getElementById("messageList");
+        newMessage.innerHTML = "";
+        messages.create(data).then(response => {
+          var promise = Promise.resolve(response);
+          console.log("promise", promise);
+          promise.then(value => {
+            console.log("value", value);
+            if (apiProvider == "telstra")
+              value.messages.forEach(message => (newMessage.innerHTML += "<h4>" + message.messageId + " | " + message.to + " | " + message.deliveryStatus + " </h4>"));
+            if (apiProvider == "messagebird")
+              value.recipients.items.forEach(message => (newMessage.innerHTML += "<h4>" + value.id + " | " + message.recipient + " | " + message.status + " </h4>"));
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
